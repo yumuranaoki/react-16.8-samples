@@ -3,7 +3,7 @@ interface result {
 }
 
 export class CountAPI {
-  static async getCount() {
+  static async getCount() : Promise<result> {
     let result : result;
     try {
       const response = await fetch('http://localhost:3000/', {
