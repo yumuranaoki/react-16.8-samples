@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { countContext } from './context/count';
-import { ChildComponentForUseContext } from './childComponentForUseContext';
-import { ChildComponentForUseReducer } from './childComponentForUseReducer';
+import { ChildComponentForUseContext } from './useContext';
+import { ChildComponentForUseReducer } from './useReducer';
+import { ChildComponentForSuspense } from "./suspense";
 
 export const App: React.SFC<{}> = () => {
   const [count, setCount] = React.useState<number>(0);
@@ -18,6 +19,7 @@ export const App: React.SFC<{}> = () => {
       </button>
       <ChildComponentForUseContext />
       <ChildComponentForUseReducer />
+      <ChildComponentForSuspense />
     </countContext.Provider>
   )
 }
