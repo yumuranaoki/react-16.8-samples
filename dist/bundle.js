@@ -24240,6 +24240,146 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./src/app.tsx":
+/*!*********************!*\
+  !*** ./src/app.tsx ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var count_1 = __webpack_require__(/*! ./context/count */ "./src/context/count.ts");
+var childComponentForUseContext_1 = __webpack_require__(/*! ./childComponentForUseContext */ "./src/childComponentForUseContext.tsx");
+var childComponentForUseReducer_1 = __webpack_require__(/*! ./childComponentForUseReducer */ "./src/childComponentForUseReducer.tsx");
+exports.App = function () {
+    var _a = React.useState(0), count = _a[0], setCount = _a[1];
+    React.useEffect(function () {
+        document.title = "you clicked " + count + " times";
+    });
+    return (React.createElement(count_1.countContext.Provider, { value: { count: count, setCount: setCount } },
+        React.createElement("p", null,
+            "count by useState: ",
+            count,
+            " times"),
+        React.createElement("button", { onClick: function () { return setCount(count + 1); } }, "add by useState"),
+        React.createElement(childComponentForUseContext_1.ChildComponentForUseContext, null),
+        React.createElement(childComponentForUseReducer_1.ChildComponentForUseReducer, null)));
+};
+
+
+/***/ }),
+
+/***/ "./src/childComponentForUseContext.tsx":
+/*!*********************************************!*\
+  !*** ./src/childComponentForUseContext.tsx ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var count_1 = __webpack_require__(/*! ./context/count */ "./src/context/count.ts");
+exports.ChildComponentForUseContext = function () {
+    var _a = React.useContext(count_1.countContext), count = _a.count, setCount = _a.setCount;
+    return (React.createElement("div", null,
+        React.createElement("p", null,
+            "count by useContex via useState: ",
+            count,
+            " times"),
+        React.createElement("button", { onClick: function () { return setCount(count + 1); } }, "add by useContext via useState")));
+};
+
+
+/***/ }),
+
+/***/ "./src/childComponentForUseReducer.tsx":
+/*!*********************************************!*\
+  !*** ./src/childComponentForUseReducer.tsx ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var initialState = {
+    count: 0
+};
+exports.reducer = function (state, action) {
+    switch (action.type) {
+        case 'increment':
+            return { count: state.count + 1 };
+        default:
+            throw new Error();
+    }
+};
+exports.ChildComponentForUseReducer = function () {
+    var _a = React.useReducer(exports.reducer, initialState), state = _a[0], dispatch = _a[1];
+    return (React.createElement("div", null,
+        React.createElement("p", null,
+            "count by useReducer: ",
+            state.count,
+            " times"),
+        React.createElement("button", { onClick: function () { return dispatch({ type: 'increment' }); } }, "add by useReducer")));
+};
+
+
+/***/ }),
+
+/***/ "./src/context/count.ts":
+/*!******************************!*\
+  !*** ./src/context/count.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var initialState = {
+    count: 0,
+    setCount: function () { }
+};
+exports.countContext = React.createContext(initialState);
+
+
+/***/ }),
+
 /***/ "./src/index.tsx":
 /*!***********************!*\
   !*** ./src/index.tsx ***!
@@ -24259,10 +24399,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var ReactDOM = __importStar(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
-var App = function (props) { return (React.createElement("h1", null,
-    "Hello ",
-    props.greeting)); };
-ReactDOM.render(React.createElement(App, { greeting: 'from typescript' }), document.getElementById('root'));
+var app_1 = __webpack_require__(/*! ./app */ "./src/app.tsx");
+ReactDOM.render(React.createElement(app_1.App, null), document.getElementById('root'));
 
 
 /***/ })

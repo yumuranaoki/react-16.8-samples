@@ -1,18 +1,23 @@
 import * as React from 'react';
+import { countContext } from './context/count';
+import { ChildComponentForUseContext } from './childComponentForUseContext';
+import { ChildComponentForUseReducer } from './childComponentForUseReducer';
 
-export const App = () => {
-  const [count, setCount] = React.useState(0);
+export const App: React.SFC<{}> = () => {
+  const [count, setCount] = React.useState<number>(0);
 
   React.useEffect(() => {
     document.title = `you clicked ${count} times`
   })
 
   return (
-    <div>
-      <p>You clicked {count} times</p>
+    <countContext.Provider value={{count, setCount}}>
+      <p>count by useState: {count} times</p>
       <button onClick={() => setCount(count + 1)}>
-        click
+        add by useState
       </button>
-    </div>
+      <ChildComponentForUseContext />
+      <ChildComponentForUseReducer />
+    </countContext.Provider>
   )
 }
