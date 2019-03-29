@@ -3,6 +3,7 @@ import { countContext } from './context/count';
 import { ChildComponentForUseContext } from './useContext';
 import { ChildComponentForUseReducer } from './useReducer';
 import { ChildComponentForSuspense } from "./suspense";
+import Form from './customHooks';
 
 export const App: React.SFC<{}> = () => {
   const [count, setCount] = React.useState<number>(0);
@@ -20,6 +21,7 @@ export const App: React.SFC<{}> = () => {
       <ChildComponentForUseContext />
       <ChildComponentForUseReducer />
       <ChildComponentForSuspense />
+      <Form />
     </countContext.Provider>
   )
 }
